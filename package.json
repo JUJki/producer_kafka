@@ -1,17 +1,12 @@
 {
-  "name": "fake-krypto",
+  "name": "producer",
   "version": "1.0.0",
-  "main": "fake-krypto.js",
+  "main": "producer.js",
   "license": "MIT",
   "scripts": {
     "dev": "serverless offline start --noTimeout",
-    "dev-install": "yarn && ./node_modules/heimdall-ci-script/yarn-install.sh install",
-    "dev-uninstall": "./node_modules/heimdall-ci-script/yarn-install.sh uninstall",
-    "generate-sls": "node ./node_modules/heimdall-ci-script/generate-sls-repo.js",
-    "generate-all-sls": "./node_modules/heimdall-ci-script/generate-sls.sh",
-    "test": "./node_modules/heimdall-ci-script/code-style-test.sh",
     "docker": "serverless offline start --host 0.0.0.0 --stage docker",
-    "start": "node fake-krypto.js",
+    "start": "node producer.js",
     "code-style": "xo",
     "deploy": "serverless deploy"
   },
@@ -46,12 +41,12 @@
     "prettier": true
   },
   "exposed-functions": [
-    "fakeKrypto"
+    "producerKafka"
   ],
   "sls-env": {
     "FAKE_KRYPTO_URL": {
-      "dev": "http://localhost:3000/fake-krypto",
-      "docker": "http://localhost:3000/fake-krypto"
+      "dev": "http://localhost:3000/producer",
+      "docker": "http://localhost:3000/producer"
     }
   }
 }
