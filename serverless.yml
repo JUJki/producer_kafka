@@ -1,0 +1,32 @@
+service: fake-krypto-node
+
+provider:
+  name: kubeless
+  runtime: nodejs8
+  namespace: kubeless
+  environment :
+    FAKE_KRYTPO_URL: 'http://localhost:3000/fake-krypto'
+    KAFKA_URL: 'localhost:9092'
+
+package:
+  excludeDevDependencies: true
+  exclude:
+    - test/**
+    - node_modules/**
+
+functions:
+  fake-krypto:
+    handler: fake-krypto.fakeKrypto
+    events:
+      - http : POST fake-krypto
+
+custom:
+  stage: 'dev'
+  dev:
+    FAKE_KRYTPO_URL: 'http://localhost:3000/fake-krypto'
+    KAFKA_URL: 'localhost:9092'
+  docker :
+    FAKE_KRYTPO_URL: 'http://localhost:3000/fake-krypto'
+
+plugins:
+  - serverless-offline
