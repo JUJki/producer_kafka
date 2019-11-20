@@ -1,11 +1,11 @@
-service: fake-krypto-node
+service: producer-kakfa-node
 
 provider:
   name: kubeless
   runtime: nodejs8
   namespace: kubeless
   environment :
-    FAKE_KRYTPO_URL: 'http://localhost:3000/fake-krypto'
+    FAKE_KRYTPO_URL: 'http://localhost:3000/producer'
     KAFKA_URL: 'localhost:9092'
 
 package:
@@ -16,17 +16,17 @@ package:
 
 functions:
   fake-krypto:
-    handler: fake-krypto.fakeKrypto
+    handler: producer.producerKafka
     events:
-      - http : POST fake-krypto
+      - http : POST producer
 
 custom:
   stage: 'dev'
   dev:
-    FAKE_KRYTPO_URL: 'http://localhost:3000/fake-krypto'
+    FAKE_KRYTPO_URL: 'http://localhost:3000/producer'
     KAFKA_URL: 'localhost:9092'
   docker :
-    FAKE_KRYTPO_URL: 'http://localhost:3000/fake-krypto'
+    FAKE_KRYTPO_URL: 'http://localhost:3000/producer'
 
 plugins:
   - serverless-offline

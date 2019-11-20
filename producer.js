@@ -2,7 +2,7 @@ const {serverlessHandler} = require('serverless-provider-handler');
 const {sendToKafka} = require('post-json-to-kafka');
 const R = require('ramda');
 
-const fakeKrypto_ = model =>
+const producer_ = model =>
     R.pipe(
         R.of,
         sendToKafka('Kryptonopolis', 'train'),
@@ -10,6 +10,6 @@ const fakeKrypto_ = model =>
     )(model);
 
 
-const fakeKrypto = serverlessHandler(fakeKrypto_);
+const producerKafka = serverlessHandler(producer_);
 
-module.exports = {fakeKrypto};
+module.exports = {producerKafka};
