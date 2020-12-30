@@ -1,0 +1,7 @@
+{
+  "env": "local",
+  "urlService": {
+    "kafka": "broker.kubeless:9092"
+  },
+  "timeOut_consumer": "5000"
+}

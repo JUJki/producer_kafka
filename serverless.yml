@@ -6,6 +6,7 @@ provider:
   namespace: kubeless
   environment :
     FAKE_KRYTPO_URL: 'http://localhost:3000/producer'
+    FAKE_KRYTPOSIMPLE_URL: 'http://localhost:3000/producersimple'
     KAFKA_URL: 'localhost:9092'
 
 package:
@@ -15,18 +16,32 @@ package:
     - node_modules/**
 
 functions:
-  fake-krypto:
+  producer:
     handler: producer.producerKafka
     events:
       - http : POST producer
+  producersimple:
+    handler: producer.producerSimple
+    events:
+      - http: POST producersimple
+  producerElasticSearch:
+    handler: producer.producerElasticSearch
+    events:
+      - http: POST producerElasticSearch
+  producerCompaction:
+    handler: producer.producerKeyedCompaction
+    events:
+      - http: POST producerKeyedCompaction
 
 custom:
   stage: 'dev'
   dev:
     FAKE_KRYTPO_URL: 'http://localhost:3000/producer'
+    FAKE_KRYTPOSIMPLE_URL: 'http://localhost:3000/producersimple'
     KAFKA_URL: 'localhost:9092'
   docker :
     FAKE_KRYTPO_URL: 'http://localhost:3000/producer'
-
+    FAKE_KRYTPOSIMPLE_URL: 'http://localhost:3000/producersimple'
+    KAFKA_URL: 'localhost:9092'
 plugins:
   - serverless-offline
